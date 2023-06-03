@@ -1,0 +1,46 @@
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+/*
+body * {
+    margin: 0;
+    box-sizing: border-box;
+} */
+
+body {
+    background-color: black;
+    background-image: url('../img/synthwave.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas {
+    margin: 2rem auto;
+    border: 2px solid #fff;
+    border-radius: 15px;
+}
+
+.neon-pink {
+    box-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+    -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+    inset 0 0 0.6rem #ffe6ff, inset 0 0 1.5rem #ff2483,
+    inset -0.2rem 0.1rem 1rem #ff65bd;
+
+}
+
+.lives-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.heart {
+    width: 50px;
+    height: 50px;
+}
