@@ -5,7 +5,7 @@ require('dotenv').config();
 // create server
 const app = express();
 
-const PORT = process.env.PORT || 3080;
+const PORT = process.env.PORT || 3000;
 
 // create directory for static ressources
 app.use(express.static('public'));
@@ -18,5 +18,5 @@ app.get('/', (req, res) => {
 
 // listen on port
 app.listen(PORT, () => {
-    console.log(`server is running on http://localhost:3000`);
+    console.log(`server is running on http://localhost:${PORT}`);
 });

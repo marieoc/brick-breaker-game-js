@@ -190,21 +190,21 @@ class Game {
     displayGameOver()
     {
         this.context.fillStyle = '#fff';
-        this.context.font = 'bold 30px Verdana';
+        this.context.font = 'bold 30px Retro Gaming';
         // Write text on the center by measuring the size first
          
-        let txtMetrics = this.context.measureText('Game Over');
-        this.context.fillText('Game Over', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
+        let txtMetrics = this.context.measureText('Game Over!');
+        this.context.fillText('Game Over!', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
     }
 
     displayGameWon()
     {
         this.context.fillStyle = '#fff';
-        this.context.font = 'bold 30px Verdana';
+        this.context.font = 'bold 30px Retro Gaming';
 
         // Write text on the center by measuring the size first
-        let txtMetrics = this.context.measureText('Victory !!!');
-        this.context.fillText('Victory !!!', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
+        let txtMetrics = this.context.measureText('Victory!');
+        this.context.fillText('Victory!', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
     }
 
     // Add all event listener of the game here
