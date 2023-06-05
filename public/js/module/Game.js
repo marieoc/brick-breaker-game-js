@@ -203,7 +203,7 @@ class Game {
         this.context.font = 'bold 30px Retro Gaming';
 
         // Write text on the center by measuring the size first
-        let txtMetrics = this.context.measureText('Victory!');
+        let txtMetrics = this.context.measureText('You won!');
         this.context.fillText('Victory!', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
     }
 
