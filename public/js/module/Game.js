@@ -15,6 +15,7 @@ class Game {
     isGameStarted;
     isGamePaused;
     isGameOver;
+    isGameWon;
     remainingLives;
 
     // Constructor
@@ -60,7 +61,7 @@ class Game {
         this.ball.position.x = this.paddle.position.x + this.paddle.width/2;
 
         // Ball Direction
-        this.ball.direction.x = 1;
+        this.ball.direction.x = 0;
         this.ball.direction.y = -1;
     }
 
@@ -109,9 +110,9 @@ class Game {
 
         // If there is no brick anymore, display game won message
         if(0 === brickCount){
-            this.displayGameWon();
-            this.isGameStarted = false;
             this.isGamePaused = true;
+            this.isGameWon = true;
+            this.displayGameWon();
         }
 
         // If game is over, display game over message
@@ -132,16 +133,13 @@ class Game {
         ) {
             this.ball.direction.y *= -1;
 
-            // Handle horizontal direction behaviour on bounce
-            if (this.ball.position.x <= this.paddle.position.x + this.paddle.width/3) {
-                this.ball.direction.x = -1;
-            }
-            else if (this.ball.position.x >= this.paddle.position.x + this.paddle.width * 2/3) {
-                this.ball.direction.x = 1;
-            }
-            else {
-                this.ball.direction.x = 0;
-            }
+            // Calculate the ratio of the ball's position relative to the paddle's width
+            const positionRatio = (this.ball.position.x - this.paddle.position.x) / this.paddle.width;
+
+            // Adjust the bounce angle based on the position ratio
+            this.ball.direction.x = positionRatio * 2 - 1;
+
+
         } 
         // If ball touches bottom, decrease remaining lives
         else if (this.ball.position.y + this.ball.size/2 >= this.canvas.height) {
@@ -219,20 +217,35 @@ class Game {
             case 'ArrowLeft':
                 this.paddle.direction = -1;
                 this.paddle.move(this.canvas.width);
+
+                // update ball position if user move paddle before starting the game
+                if (!this.isGameStarted || this.isGamePaused) {
+                    this.ball.position.x = this.paddle.position.x + (this.paddle.width / 2);
+                }
+
                 break;
+
             // Move paddle to the left
             case 'ArrowRight':
                 this.paddle.direction = 1;
                 this.paddle.move(this.canvas.width);
+
+                // update ball position if user move paddle before starting the game
+                if (!this.isGameStarted || this.isGamePaused) {
+                    this.ball.position.x = this.paddle.position.x + (this.paddle.width / 2);
+                }
+
                 break;
+
             // Handle Space key
             case 'Space':
                 if(!this.isGameStarted) {
                     this.isGameStarted = true;
                     this.isGamePaused = false;
-                } else if(this.isGameOver) {
+                } else if(this.isGameOver || this.isGameWon) {
                         this.remainingLives = 3;
                         this.isGameOver = false;
+                        this.isGameWon = false;
                         this.isGameStarted = false;
                         this.initPositions();
                         this.resetBricks();
