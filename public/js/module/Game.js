@@ -30,6 +30,7 @@ class Game {
         this.isGameStarted = false;
         this.isGamePaused = false;
         this.isGameOver = false;
+        this.isBallOnPaddle = false;
         this.remainingLives = 3;
 
         // Execute initialization methods
@@ -56,9 +57,11 @@ class Game {
     }
 
     initPositions() {
-        // Ball position
+        // Ball position{
         this.ball.position.y = this.paddle.position.y - this.ball.size/2 - 1;
         this.ball.position.x = this.paddle.position.x + this.paddle.width/2;
+
+
 
         // Ball Direction
         this.ball.direction.x = 0;
@@ -67,11 +70,11 @@ class Game {
 
     play() {
         // If game has been started and not paused, move the ball
-        if(this.isGameStarted && !this.isGamePaused){
+        if (this.isGameStarted && !this.isGamePaused){
             this.ball.move(this.canvas.height, this.canvas.width);
 
         // If game is not started yet, initialize game
-        } else if(!this.isGameStarted) {
+        } else if (!this.isGameStarted) {
             this.initPositions();
         }
 
@@ -138,9 +141,9 @@ class Game {
 
             // Adjust the bounce angle based on the position ratio
             this.ball.direction.x = positionRatio * 2 - 1;
-
-
         } 
+
+
         // If ball touches bottom, decrease remaining lives
         else if (this.ball.position.y + this.ball.size/2 >= this.canvas.height) {
             this.remainingLives--;
@@ -153,9 +156,8 @@ class Game {
                 this.isGamePaused = true;
                 this.initPositions();
             }
+            
         }
-
-        
 
         // Detect collision for all bricks
         for (const brick of this.bricks){
@@ -202,7 +204,7 @@ class Game {
 
         // Write text on the center by measuring the size first
         let txtMetrics = this.context.measureText('You won!');
-        this.context.fillText('Victory!', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
+        this.context.fillText('You won!', this.canvas.width / 2 - txtMetrics.width/2, this.canvas.height/2);
     }
 
     // Add all event listener of the game here
@@ -217,24 +219,14 @@ class Game {
             case 'ArrowLeft':
                 this.paddle.direction = -1;
                 this.paddle.move(this.canvas.width);
-
-                // update ball position if user move paddle before starting the game
-                if (!this.isGameStarted || this.isGamePaused) {
-                    this.ball.position.x = this.paddle.position.x + (this.paddle.width / 2);
-                }
-
+                
                 break;
 
             // Move paddle to the left
             case 'ArrowRight':
                 this.paddle.direction = 1;
                 this.paddle.move(this.canvas.width);
-
-                // update ball position if user move paddle before starting the game
-                if (!this.isGameStarted || this.isGamePaused) {
-                    this.ball.position.x = this.paddle.position.x + (this.paddle.width / 2);
-                }
-
+                
                 break;
 
             // Handle Space key
@@ -249,6 +241,7 @@ class Game {
                         this.isGameStarted = false;
                         this.initPositions();
                         this.resetBricks();
+                        this.isBallOnPaddle = true;
                 } else {
                     this.isGamePaused = !this.isGamePaused;
                 }
