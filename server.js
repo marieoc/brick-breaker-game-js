@@ -5,7 +5,7 @@ require('dotenv').config();
 // create server
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 // create directory for static ressources
 app.use(express.static('public'));
