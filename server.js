@@ -14,7 +14,11 @@ app.use(express.static('public'));
 // use res.sendFile() to render an html file (no ejs or other templates)
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
-  });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'index.html'));
+});
 
 // listen on port
 app.listen(PORT, () => {
